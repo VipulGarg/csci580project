@@ -1,4 +1,4 @@
-/*   CS580 HW   */
+/*   CS580 Project   */
 #include    "stdafx.h"  
 #include	"Gz.h"
 #include	"disp.h"

@@ -1,5 +1,3 @@
-/* CS580 Homework 3 */
-
 #include	"stdafx.h"
 #include	"stdio.h"
 #include	"math.h"
@@ -563,10 +561,6 @@ int GzPutTriangle(GzRender	*render, int numParts, GzToken *nameList,
 				(value1 > 0 && value2 > 0 && value3 > 0) ||
 				(value1 == 0 || value2 == 0 || value3 == 0))
 			{
-				if (x==131 && y ==21)
-				{
-					int g=1;
-				}
 				float z = plane.GetZ(x, y);
 				GzCoord point;
 				point[0] = x;

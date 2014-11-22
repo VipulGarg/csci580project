@@ -2,7 +2,7 @@
 //
 
 #include "stdafx.h"
-#include "CS580HW.h"
+#include "CS580Project.h"
 #include "Light1Dlg.h"
 
 #ifdef _DEBUG

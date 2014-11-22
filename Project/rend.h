@@ -1,8 +1,8 @@
-#include "disp.h" /* include your own disp.h file (e.g. hw1)*/
+#include "disp.h" /* include your own disp.h file*/
 
 /* Camera defaults */
 #define	DEFAULT_FOV		55.0
-#define	DEFAULT_IM_Z	(-15.0)  /* world coords for image plane origin */
+#define	DEFAULT_IM_Z	(-10.0)  /* world coords for image plane origin */
 //#define	DEFAULT_IM_Y	(5.0)    /* default look-at point = 0,0,0 */
 //#define	DEFAULT_IM_X	(-10.0)
 #define	DEFAULT_IM_Y	(0.0)    /* default look-at point = 0,0,0 */
@@ -45,7 +45,6 @@ typedef struct {			/* define a renderer */
 #endif
 
 // Function declaration
-// HW2
 int GzNewRender(GzRender **render, GzRenderClass renderClass, GzDisplay *display);
 int GzFreeRender(GzRender *render);
 int GzBeginRender(GzRender	*render);
@@ -53,8 +52,6 @@ int GzPutAttribute(GzRender	*render, int numAttributes, GzToken	*nameList,
 	GzPointer *valueList);
 int GzPutTriangle(GzRender *render, int	numParts, GzToken *nameList,
 	GzPointer *valueList);
-
-// HW3
 int GzPutCamera(GzRender *render, GzCamera *camera);
 int GzPushMatrix(GzRender *render, GzMatrix	matrix);
 int GzPopMatrix(GzRender *render);

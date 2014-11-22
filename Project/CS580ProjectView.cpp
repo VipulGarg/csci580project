@@ -1,11 +1,11 @@
-// CS580HWView.cpp : implementation of the CCS580HWView class
+// CS580ProjectView.cpp : implementation of the CCS580ProjectView class
 //
 
 #include "stdafx.h"
-#include "CS580HW.h"
+#include "CS580Project.h"
 
-#include "CS580HWDoc.h"
-#include "CS580HWView.h"
+#include "CS580ProjectDoc.h"
+#include "CS580ProjectView.h"
 #include "RotateDlg.h"
 #include "TranslateDlg.h"
 #include "ScaleDlg.h"
@@ -14,7 +14,7 @@
 #include "AmbientLightDlg.h"
 
 #include "disp.h"
-#include "Application4.h"
+#include "Project.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -23,12 +23,12 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
-// CCS580HWView
+// CCS580ProjectView
 
-IMPLEMENT_DYNCREATE(CCS580HWView, CView)
+IMPLEMENT_DYNCREATE(CCS580ProjectView, CView)
 
-BEGIN_MESSAGE_MAP(CCS580HWView, CView)
-	//{{AFX_MSG_MAP(CCS580HWView)
+BEGIN_MESSAGE_MAP(CCS580ProjectView, CView)
+	//{{AFX_MSG_MAP(CCS580ProjectView)
 	ON_COMMAND(IDM_RENDER, OnRender)
 	ON_COMMAND(IDM_ROTATE, OnRotate)
 	ON_COMMAND(IDM_TRANSLATE, OnTranslate)
@@ -46,15 +46,15 @@ BEGIN_MESSAGE_MAP(CCS580HWView, CView)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
-// CCS580HWView construction/destruction
+// CCS580ProjectView construction/destruction
 
-CCS580HWView::CCS580HWView()
+CCS580ProjectView::CCS580ProjectView()
 {
 	// TODO: add construction code here
 	m_pApplication = NULL;
 }
 
-CCS580HWView::~CCS580HWView()
+CCS580ProjectView::~CCS580ProjectView()
 {
 	if(m_pApplication != NULL)
 	{
@@ -62,7 +62,7 @@ CCS580HWView::~CCS580HWView()
 	}
 }
 
-BOOL CCS580HWView::PreCreateWindow(CREATESTRUCT& cs)
+BOOL CCS580ProjectView::PreCreateWindow(CREATESTRUCT& cs)
 {
 	// TODO: Modify the Window class or styles here by modifying
 	//  the CREATESTRUCT cs
@@ -71,11 +71,11 @@ BOOL CCS580HWView::PreCreateWindow(CREATESTRUCT& cs)
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// CCS580HWView drawing
+// CCS580ProjectView drawing
 
-void CCS580HWView::OnDraw(CDC* pDC)
+void CCS580ProjectView::OnDraw(CDC* pDC)
 {
-	CCS580HWDoc* pDoc = GetDocument();
+	CCS580ProjectDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	// TODO: add draw code for native data here
 	if(m_pApplication != NULL)
@@ -83,30 +83,30 @@ void CCS580HWView::OnDraw(CDC* pDC)
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// CCS580HWView diagnostics
+// CCS580ProjectView diagnostics
 
 #ifdef _DEBUG
-void CCS580HWView::AssertValid() const
+void CCS580ProjectView::AssertValid() const
 {
 	CView::AssertValid();
 }
 
-void CCS580HWView::Dump(CDumpContext& dc) const
+void CCS580ProjectView::Dump(CDumpContext& dc) const
 {
 	CView::Dump(dc);
 }
 
-CCS580HWDoc* CCS580HWView::GetDocument() // non-debug version is inline
+CCS580ProjectDoc* CCS580ProjectView::GetDocument() // non-debug version is inline
 {
-	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CCS580HWDoc)));
-	return (CCS580HWDoc*)m_pDocument;
+	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CCS580ProjectDoc)));
+	return (CCS580ProjectDoc*)m_pDocument;
 }
 #endif //_DEBUG
 
 /////////////////////////////////////////////////////////////////////////////
-// CCS580HWView message handlers
+// CCS580ProjectView message handlers
 
-void CCS580HWView::OnRender() 
+void CCS580ProjectView::OnRender() 
 {
 	// TODO: Add your command handler code here
 
@@ -114,7 +114,7 @@ void CCS580HWView::OnRender()
 
 	// Application 4
 	if(m_pApplication != NULL)
-		((Application4 *)m_pApplication)->Render();
+		((Project *)m_pApplication)->Render();
 	else 
 		AfxMessageBox("Application was not allocated\n");
 
@@ -133,7 +133,7 @@ void CCS580HWView::OnRender()
 	Invalidate(true);	
 }
 
-void CCS580HWView::DrawFrameBuffer(CDC *pDC)
+void CCS580ProjectView::DrawFrameBuffer(CDC *pDC)
 {
 	if(m_pApplication->m_pFrameBuffer == NULL)
     {
@@ -185,7 +185,7 @@ void CCS580HWView::DrawFrameBuffer(CDC *pDC)
     DeleteObject(m_bitmap); 
 }
 
-void CCS580HWView::OnInitialUpdate() 
+void CCS580ProjectView::OnInitialUpdate() 
 {
 	CView::OnInitialUpdate();
 	
@@ -194,15 +194,15 @@ void CCS580HWView::OnInitialUpdate()
 	// Assign Application 4
 	if(m_pApplication == NULL)
 	{
-		m_pApplication = new Application4;
+		m_pApplication = new Project;
 	}
 	
 	// Initialize and begin renderer
-	((Application4 *)m_pApplication)->Initialize();
+	((Project *)m_pApplication)->Initialize();
 }
 
 // Callback function for rotation  
-void CCS580HWView::OnRotate() 
+void CCS580ProjectView::OnRotate() 
 {
 	// TODO: Add your command handler code here
 	CRotateDlg dlg;
@@ -253,7 +253,7 @@ void CCS580HWView::OnRotate()
 }
 
 // Callback function for rotation  
-void CCS580HWView::OnRotateXP() 
+void CCS580ProjectView::OnRotateXP() 
 {
 	// TODO: Add your command handler code here
 	GzMatrix	rotMat = 
@@ -275,7 +275,7 @@ void CCS580HWView::OnRotateXP()
 }
 
 // Callback function for rotation  
-void CCS580HWView::OnRotateXN() 
+void CCS580ProjectView::OnRotateXN() 
 {
 	// TODO: Add your command handler code here
 	GzMatrix	rotMat = 
@@ -297,7 +297,7 @@ void CCS580HWView::OnRotateXN()
 }
 
 // Callback function for rotation  
-void CCS580HWView::OnRotateYP() 
+void CCS580ProjectView::OnRotateYP() 
 {
 	// TODO: Add your command handler code here
 	GzMatrix	rotMat = 
@@ -319,7 +319,7 @@ void CCS580HWView::OnRotateYP()
 }
 
 // Callback function for rotation  
-void CCS580HWView::OnRotateYN() 
+void CCS580ProjectView::OnRotateYN() 
 {
 	// TODO: Add your command handler code here
 	GzMatrix	rotMat = 
@@ -341,7 +341,7 @@ void CCS580HWView::OnRotateYN()
 }
 
 // Callback function for rotation  
-void CCS580HWView::OnRotateZP() 
+void CCS580ProjectView::OnRotateZP() 
 {
 	// TODO: Add your command handler code here
 	GzMatrix	rotMat = 
@@ -363,7 +363,7 @@ void CCS580HWView::OnRotateZP()
 }
 
 // Callback function for rotation  
-void CCS580HWView::OnRotateZN() 
+void CCS580ProjectView::OnRotateZN() 
 {
 	// TODO: Add your command handler code here
 	GzMatrix	rotMat = 
@@ -385,7 +385,7 @@ void CCS580HWView::OnRotateZN()
 }
 
 // Callback function for Translation
-void CCS580HWView::OnTranslate() 
+void CCS580ProjectView::OnTranslate() 
 {
 	// TODO: Add your command handler code here
 	CTranslateDlg dlg;
@@ -422,7 +422,7 @@ void CCS580HWView::OnTranslate()
 }
 
 // Callback function for Scaling
-void CCS580HWView::OnScale() 
+void CCS580ProjectView::OnScale() 
 {
 	// TODO: Add your command handler code here
 	CScaleDlg dlg;
@@ -460,7 +460,7 @@ void CCS580HWView::OnScale()
 
 
 // Callback function for Scaling
-void CCS580HWView::OnLight1()
+void CCS580ProjectView::OnLight1()
 {
 	// TODO: Add your command handler code here
 	CLight1Dlg dlg;
@@ -493,7 +493,7 @@ void CCS580HWView::OnLight1()
 
 
 // Callback function for Scaling
-void CCS580HWView::OnLight2()
+void CCS580ProjectView::OnLight2()
 {
 	// TODO: Add your command handler code here
 	CLight2Dlg dlg;
@@ -526,7 +526,7 @@ void CCS580HWView::OnLight2()
 
 
 // Callback function for Scaling
-void CCS580HWView::OnAmbientLight()
+void CCS580ProjectView::OnAmbientLight()
 {
 	// TODO: Add your command handler code here
 	CAmbientLightDlg dlg;

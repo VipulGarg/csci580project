@@ -1,12 +1,12 @@
-// CS580HW.cpp : Defines the class behaviors for the application.
+// CS580Project.cpp : Defines the class behaviors for the application.
 //
 
 #include "stdafx.h"
-#include "CS580HW.h"
+#include "CS580Project.h"
 
 #include "MainFrm.h"
-#include "CS580HWDoc.h"
-#include "CS580HWView.h"
+#include "CS580ProjectDoc.h"
+#include "CS580ProjectView.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -15,10 +15,10 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
-// CCS580HWApp
+// CCS580ProjectApp
 
-BEGIN_MESSAGE_MAP(CCS580HWApp, CWinApp)
-	//{{AFX_MSG_MAP(CCS580HWApp)
+BEGIN_MESSAGE_MAP(CCS580ProjectApp, CWinApp)
+	//{{AFX_MSG_MAP(CCS580ProjectApp)
 	ON_COMMAND(ID_APP_ABOUT, OnAppAbout)
 		// NOTE - the ClassWizard will add and remove mapping macros here.
 		//    DO NOT EDIT what you see in these blocks of generated code!
@@ -29,27 +29,27 @@ BEGIN_MESSAGE_MAP(CCS580HWApp, CWinApp)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
-// CCS580HWApp construction
+// CCS580ProjectApp construction
 
-CCS580HWApp::CCS580HWApp()
+CCS580ProjectApp::CCS580ProjectApp()
 {
 	// TODO: add construction code here,
 	// Place all significant initialization in InitInstance
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// The one and only CCS580HWApp object
+// The one and only CCS580ProjectApp object
 
-CCS580HWApp theApp;
+CCS580ProjectApp theApp;
 OBJParser objParser;
 GzLight	light1 = { {-0.7071, 0.7071, 0}, {0.5, 0.5, 0.9} };
 GzLight	light2 = { {0, -0.7071, -0.7071}, {0.9, 0.2, 0.3} };
 GzLight	ambientLight = { {0, 0, 0}, {0.3, 0.3, 0.3} };
 
 /////////////////////////////////////////////////////////////////////////////
-// CCS580HWApp initialization
+// CCS580ProjectApp initialization
 
-BOOL CCS580HWApp::InitInstance()
+BOOL CCS580ProjectApp::InitInstance()
 {
 	AfxEnableControlContainer();
 
@@ -77,9 +77,9 @@ BOOL CCS580HWApp::InitInstance()
 	CSingleDocTemplate* pDocTemplate;
 	pDocTemplate = new CSingleDocTemplate(
 		IDR_MAINFRAME,
-		RUNTIME_CLASS(CCS580HWDoc),
+		RUNTIME_CLASS(CCS580ProjectDoc),
 		RUNTIME_CLASS(CMainFrame),       // main SDI frame window
-		RUNTIME_CLASS(CCS580HWView));
+		RUNTIME_CLASS(CCS580ProjectView));
 	AddDocTemplate(pDocTemplate);
 
 	// Parse command line for standard shell commands, DDE, file open
@@ -145,14 +145,14 @@ BEGIN_MESSAGE_MAP(CAboutDlg, CDialog)
 END_MESSAGE_MAP()
 
 // App command to run the dialog
-void CCS580HWApp::OnAppAbout()
+void CCS580ProjectApp::OnAppAbout()
 {
 	CAboutDlg aboutDlg;
 	aboutDlg.DoModal();
 }
 
 // App command to run the dialog
-void CCS580HWApp::OnFileOpen()
+void CCS580ProjectApp::OnFileOpen()
 {
 	/*CFileDialog Dlg(TRUE);
 	Dlg.DoModal();*/
@@ -176,5 +176,5 @@ void CCS580HWApp::OnFileOpen()
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// CCS580HWApp message handlers
+// CCS580App message handlers
 

@@ -1,9 +1,9 @@
-// CS580HWView.h : interface of the CCS580HWView class
+// CS580ProjectView.h : interface of the CCS580ProjectView class
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#if !defined(AFX_CS580HWVIEW_H__F4D29CBB_F832_426E_9878_3B454FBDB8F6__INCLUDED_)
-#define AFX_CS580HWVIEW_H__F4D29CBB_F832_426E_9878_3B454FBDB8F6__INCLUDED_
+#if !defined(AFX_CS580ProjectVIEW_H__F4D29CBB_F832_426E_9878_3B454FBDB8F6__INCLUDED_)
+#define AFX_CS580ProjectVIEW_H__F4D29CBB_F832_426E_9878_3B454FBDB8F6__INCLUDED_
 
 #if _MSC_VER > 1000
 #pragma once
@@ -12,15 +12,15 @@
 #include "Application.h"
 #include "Gz.h"
 
-class CCS580HWView : public CView
+class CCS580ProjectView : public CView
 {
 protected: // create from serialization only
-	CCS580HWView();
-	DECLARE_DYNCREATE(CCS580HWView)
+	CCS580ProjectView();
+	DECLARE_DYNCREATE(CCS580ProjectView)
 
 // Attributes
 public:
-	CCS580HWDoc* GetDocument();
+	CCS580ProjectDoc* GetDocument();
 
 // Operations
 public:
@@ -29,7 +29,7 @@ public:
 
 // Overrides
 	// ClassWizard generated virtual function overrides
-	//{{AFX_VIRTUAL(CCS580HWView)
+	//{{AFX_VIRTUAL(CCS580ProjectView)
 	public:
 	virtual void OnDraw(CDC* pDC);  // overridden to draw this view
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
@@ -38,7 +38,7 @@ public:
 
 // Implementation
 public:
-	virtual ~CCS580HWView();
+	virtual ~CCS580ProjectView();
 #ifdef _DEBUG
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;
@@ -48,7 +48,7 @@ protected:
 
 // Generated message map functions
 protected:
-	//{{AFX_MSG(CCS580HWView)
+	//{{AFX_MSG(CCS580ProjectView)
 	afx_msg void OnRender();
 	afx_msg void OnRotate();
 	afx_msg void OnTranslate();
@@ -66,9 +66,9 @@ protected:
 	DECLARE_MESSAGE_MAP()
 };
 
-#ifndef _DEBUG  // debug version in CS580HWView.cpp
-inline CCS580HWDoc* CCS580HWView::GetDocument()
-   { return (CCS580HWDoc*)m_pDocument; }
+#ifndef _DEBUG  // debug version in CS580ProjectView.cpp
+inline CCS580ProjectDoc* CCS580ProjectView::GetDocument()
+   { return (CCS580ProjectDoc*)m_pDocument; }
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
@@ -76,4 +76,4 @@ inline CCS580HWDoc* CCS580HWView::GetDocument()
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
 
-#endif // !defined(AFX_CS580HWVIEW_H__F4D29CBB_F832_426E_9878_3B454FBDB8F6__INCLUDED_)
+#endif // !defined(AFX_CS580ProjectVIEW_H__F4D29CBB_F832_426E_9878_3B454FBDB8F6__INCLUDED_)

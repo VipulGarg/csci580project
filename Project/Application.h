@@ -32,6 +32,11 @@ public:
 	unsigned char* m_pPaperTexture;
 	unsigned char* m_pTextureImageMult;
 	unsigned char* m_pFinalImage;
+	float* m_pFF1_x;
+	float* m_pFF1_y;
+	unsigned char* m_pGradient;
+	float* m_pFF_x;
+	float* m_pFF_y;
 	/*char* m_p3DImageBlurred;
 	float* m_pGradientX;
 	float* m_pGradientY;

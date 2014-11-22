@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
-#include "CS580HW.h"
+#include "CS580Project.h"
 #include "Application.h"
 
 #ifdef _DEBUG
@@ -30,6 +30,11 @@ Application::Application()
 	m_pPaperTexture = NULL;
 	m_pTextureImageMult = NULL;
 	m_pFinalImage = NULL;
+	m_pFF1_x = NULL;
+	m_pFF1_y = NULL;
+	m_pGradient = NULL;
+	m_pFF_x = NULL;
+	m_pFF_y = NULL;
 }
 
 Application::~Application()

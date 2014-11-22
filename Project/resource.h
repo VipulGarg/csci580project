@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Developer Studio generated include file.
-// Used by CS580HW.rc
+// Used by CS580Project.rc
 //
 #define IDD_ABOUTBOX                    100
 #define IDR_MAINFRAME                   128
