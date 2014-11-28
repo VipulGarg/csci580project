@@ -29,8 +29,8 @@ public:
 	void GetEdgeMap(unsigned char *depthmapBlurred, unsigned char *edgeMap, float* ffx, float* ffy, unsigned char* gradient);
 	void ApplyGaussianBlur(unsigned char *framebuffer, unsigned char* output, int filterSize);
 	void GenerateTexture(unsigned char *texture);
-	void LoadTexture(unsigned char *texture);
-	void LoadPaperTexture(unsigned char*texture);
+	void LoadImageTexture(unsigned char *texture);
+	void LoadProceduralTexture(unsigned char*texture);
 	void MultiplyImageWithTexture(unsigned char* imagebuffer, unsigned char* texturebuffer, unsigned char *output);
 	void AddEdgeMap(unsigned char* imagebuffer, unsigned char* edgemap, unsigned char *output);
 	void FindForceField(float* ffx_1, float* ffy_1, unsigned char* gradient, float* ffx, float* ffy);

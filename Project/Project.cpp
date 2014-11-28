@@ -72,7 +72,9 @@ int Project::Initialize()
 	status |= GzNewFrameBuffer(&m_pDepthMapBlurred, m_nWidth, m_nHeight);
 	status |= GzNewFrameBuffer(&m_pEdgeMap, m_nWidth, m_nHeight);
 	status |= GzNewFrameBuffer(&m_p3DImageBlurred, m_nWidth, m_nHeight);
-	status |= GzNewFrameBuffer(&m_pPaperTexture, m_nWidth, m_nHeight);
+	status |= GzNewFrameBuffer(&m_pTexture, m_nWidth, m_nHeight);
+	status |= GzNewFrameBuffer(&m_pProceduralTexture, m_nWidth, m_nHeight);
+	status |= GzNewFrameBuffer(&m_pImageTexture, m_nWidth, m_nHeight);
 	status |= GzNewFrameBuffer(&m_pTextureImageMult, m_nWidth, m_nHeight);
 	status |= GzNewFrameBuffer(&m_pFinalImage, m_nWidth, m_nHeight);
 	status |= GzNewFrameBuffer(&m_pGradient, m_nWidth, m_nHeight);
@@ -187,7 +189,8 @@ GzMatrix	rotateY =
 	//status |= GzPushMatrix(m_pRender, rotateX); 
 
 	
-	LoadPaperTexture(m_pPaperTexture);
+	LoadProceduralTexture(m_pProceduralTexture);
+	LoadImageTexture(m_pImageTexture);
 
 	if (status) exit(GZ_FAILURE); 
 
@@ -329,7 +332,7 @@ void Project::BlurGradientMap9(unsigned char *gradmap, unsigned char *gradmapBlu
 }
 
 
-void Project::LoadPaperTexture(unsigned char* texture)
+void Project::LoadProceduralTexture(unsigned char* texture)
 {
 	generatePaperTexture(texture);
 }
@@ -420,7 +423,7 @@ void Project::GetEdgeMap(unsigned char *depthmapBlurred, unsigned char *edgeMap,
 			ffx[framebufferIndex] = -gradY;
 			ffy[framebufferIndex] = gradX;
 			float val;
-			if (gradMag < threshold)
+			if (gradMag < m_fthreshold)
 				val = 255;
 			else
 				val = 0;
@@ -702,8 +705,8 @@ void Project::DrawLooseStrokes(unsigned char* edgemap, float* ffx, float* ffy, u
 				float angle = atan2(yval, xval);
 				if (angle < 0)
 				 angle  = 3.14 - angle;
-				float newX = x + distanceInPixels * sin(angle);
-				float newY = y + distanceInPixels * cos(angle);
+				float newX = x + m_idistanceInPixels * sin(angle);
+				float newY = y + m_idistanceInPixels * cos(angle);
 				if (newX < 0)
 					newX = 0;
 				if (newX > m_nWidth - 1)
@@ -740,7 +743,7 @@ void Project::DrawLooseStrokes(unsigned char* edgemap, float* ffx, float* ffy, u
 	}
 }
 
-void Project::LoadTexture(unsigned char *texture)
+void Project::LoadImageTexture(unsigned char *texture)
 {
 	FILE* fd = fopen ("papertexture.ppm", "rb");
 	if (fd == NULL)
@@ -778,9 +781,9 @@ void Project::LoadTexture(unsigned char *texture)
 		{
 			int framebufferIndex = 3 * x + (y * m_nWidth * 3);
 			int i = x + (y * xs);
-			texture[framebufferIndex + 0] = image[i][RED];
+			texture[framebufferIndex + 0] = image[i][BLUE];
 			texture[framebufferIndex + 1] = image[i][GREEN];
-			texture[framebufferIndex + 2] = image[i][BLUE];
+			texture[framebufferIndex + 2] = image[i][RED];
 		}
 	}
 }
@@ -939,22 +942,98 @@ int Project::Render()
 		GzPutTriangle(m_pRender, 2, nameListTriangle, valueListTriangle);
 	}
 
-	GzFlushDisplay2File(outfile, m_pDisplay); 	/* write out or update display to file*/
+	//GzFlushDisplay2File(outfile, m_pDisplay); 	/* write out or update display to file*/
 	GzFlushDisplay2FrameBuffer(m_pFrameBuffer, m_pDisplay);	// write out or update display to frame buffer
 
-	CreateDepthMap(m_pDisplay, m_pDepthMap);
-	BlurDepthMap(m_pDepthMap, m_pDepthMapBlurred);
-	GetEdgeMap(m_pDepthMapBlurred, m_pEdgeMap, m_pFF1_x, m_pFF1_y, m_pGradient);
-	ApplyGaussianBlur(m_pFrameBuffer, m_p3DImageBlurred, 9);
-	MultiplyImageWithTexture(m_p3DImageBlurred, m_pPaperTexture, m_pTextureImageMult);
-	
-	FindForceField(m_pFF1_x, m_pFF1_y, m_pGradient, m_pFF_x, m_pFF_y);
-	unsigned char* output;
-	GzNewFrameBuffer(&output, m_nWidth, m_nHeight);
-	//DrawLine(line, 1, 230, 200, 210, 0, 0, 0);
-	//DrawForceField(m_pDepthMap, m_pFF_x, m_pFF_y);
-	DrawLooseStrokes(m_pEdgeMap, m_pFF_x, m_pFF_y, m_pTextureImageMult);
-	CopyToFrameBuffer(m_pFrameBuffer, m_pTextureImageMult);
+	switch(currRenderFunc)
+	{
+	case 1:
+		{
+			CreateDepthMap(m_pDisplay, m_pDepthMap);
+			BlurDepthMap(m_pDepthMap, m_pDepthMapBlurred);
+			CopyToFrameBuffer(m_pFrameBuffer, m_pDepthMapBlurred);
+			break;
+		}
+
+	case 2:
+		{
+			CreateDepthMap(m_pDisplay, m_pDepthMap);
+			BlurDepthMap(m_pDepthMap, m_pDepthMapBlurred);
+			GetEdgeMap(m_pDepthMapBlurred, m_pEdgeMap, m_pFF1_x, m_pFF1_y, m_pGradient);
+			CopyToFrameBuffer(m_pFrameBuffer, m_pEdgeMap);
+			break;
+		}
+
+	case 3:
+		{
+			ApplyGaussianBlur(m_pFrameBuffer, m_p3DImageBlurred, m_ifilterLength);
+			CopyToFrameBuffer(m_pFrameBuffer, m_p3DImageBlurred);
+			break;
+		}
+
+	case 4:
+		{
+			ApplyGaussianBlur(m_pFrameBuffer, m_p3DImageBlurred, m_ifilterLength);
+			MultiplyImageWithTexture(m_p3DImageBlurred, m_pProceduralTexture, m_pTextureImageMult);
+			CopyToFrameBuffer(m_pFrameBuffer, m_pTextureImageMult);
+			break;
+		}
+
+	case 5:
+		{
+			ApplyGaussianBlur(m_pFrameBuffer, m_p3DImageBlurred, m_ifilterLength);
+			MultiplyImageWithTexture(m_p3DImageBlurred, m_pImageTexture, m_pTextureImageMult);
+			CopyToFrameBuffer(m_pFrameBuffer, m_pTextureImageMult);
+			break;
+		}
+
+	case 6:
+		{
+			CreateDepthMap(m_pDisplay, m_pDepthMap);
+			BlurDepthMap(m_pDepthMap, m_pDepthMapBlurred);
+			GetEdgeMap(m_pDepthMapBlurred, m_pEdgeMap, m_pFF1_x, m_pFF1_y, m_pGradient);
+			FindForceField(m_pFF1_x, m_pFF1_y, m_pGradient, m_pFF_x, m_pFF_y);
+			unsigned char* output;
+			GzNewFrameBuffer(&output, m_nWidth, m_nHeight);
+			DrawLooseStrokes(m_pEdgeMap, m_pFF_x, m_pFF_y, output);
+			CopyToFrameBuffer(m_pFrameBuffer, output);
+			break;
+		}
+
+	case 7:
+		{
+			CreateDepthMap(m_pDisplay, m_pDepthMap);
+			BlurDepthMap(m_pDepthMap, m_pDepthMapBlurred);
+			GetEdgeMap(m_pDepthMapBlurred, m_pEdgeMap, m_pFF1_x, m_pFF1_y, m_pGradient);
+			ApplyGaussianBlur(m_pFrameBuffer, m_p3DImageBlurred, m_ifilterLength);
+			if (lastTexture == 1)
+				CopyToFrameBuffer(m_pTexture, m_pImageTexture);
+			else
+				CopyToFrameBuffer(m_pTexture, m_pProceduralTexture);
+			MultiplyImageWithTexture(m_p3DImageBlurred, m_pTexture, m_pTextureImageMult);
+			FindForceField(m_pFF1_x, m_pFF1_y, m_pGradient, m_pFF_x, m_pFF_y);
+			DrawLooseStrokes(m_pEdgeMap, m_pFF_x, m_pFF_y, m_pTextureImageMult);
+			CopyToFrameBuffer(m_pFrameBuffer, m_pTextureImageMult);
+			break;
+		}
+	default:
+		break;
+	}
+
+
+	//CreateDepthMap(m_pDisplay, m_pDepthMap);
+	//BlurDepthMap(m_pDepthMap, m_pDepthMapBlurred);
+	//GetEdgeMap(m_pDepthMapBlurred, m_pEdgeMap, m_pFF1_x, m_pFF1_y, m_pGradient);
+	//ApplyGaussianBlur(m_pFrameBuffer, m_p3DImageBlurred, 9);
+	//MultiplyImageWithTexture(m_p3DImageBlurred, m_pPaperTexture, m_pTextureImageMult);
+	//
+	//FindForceField(m_pFF1_x, m_pFF1_y, m_pGradient, m_pFF_x, m_pFF_y);
+	//unsigned char* output;
+	//GzNewFrameBuffer(&output, m_nWidth, m_nHeight);
+	////DrawLine(line, 1, 230, 200, 210, 0, 0, 0);
+	////DrawForceField(m_pDepthMap, m_pFF_x, m_pFF_y);
+	//DrawLooseStrokes(m_pEdgeMap, m_pFF_x, m_pFF_y, m_pTextureImageMult);
+	//CopyToFrameBuffer(m_pFrameBuffer, m_pTextureImageMult);
 
 	/* 
 	 * Close file

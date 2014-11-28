@@ -45,6 +45,11 @@ OBJParser objParser;
 GzLight	light1 = { {-0.7071, 0.7071, 0}, {0.5, 0.5, 0.9} };
 GzLight	light2 = { {0, -0.7071, -0.7071}, {0.9, 0.2, 0.3} };
 GzLight	ambientLight = { {0, 0, 0}, {0.3, 0.3, 0.3} };
+int currRenderFunc = 0;
+int lastTexture = 0;
+float m_fthreshold = 200;
+int m_ifilterLength = 9;
+int m_idistanceInPixels = 2;
 
 /////////////////////////////////////////////////////////////////////////////
 // CCS580ProjectApp initialization

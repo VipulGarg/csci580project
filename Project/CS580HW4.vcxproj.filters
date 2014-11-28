@@ -63,6 +63,12 @@
     <ClCompile Include="CS580ProjectView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="IncreaseDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DecreaseDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -129,6 +135,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CS580ProjectView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IncreaseDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DecreaseDlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

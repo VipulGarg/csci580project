@@ -29,7 +29,9 @@ public:
 	unsigned char* m_pDepthMapBlurred;
 	unsigned char* m_pEdgeMap;
 	unsigned char* m_p3DImageBlurred;
-	unsigned char* m_pPaperTexture;
+	unsigned char* m_pTexture;
+	unsigned char* m_pProceduralTexture;
+	unsigned char* m_pImageTexture;
 	unsigned char* m_pTextureImageMult;
 	unsigned char* m_pFinalImage;
 	float* m_pFF1_x;

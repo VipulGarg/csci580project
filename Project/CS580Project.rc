@@ -108,6 +108,8 @@ BEGIN
         MENUITEM "Light 1",                     IDM_LIGHT1
         MENUITEM "Light 2",                     IDM_LIGHT2
         MENUITEM "Ambient Light",               IDM_AMBIENT_LIGHT
+        MENUITEM "Increase Parameters",                    IDM_INCREASE
+        MENUITEM "Decrease Parameters",                    IDM_DECREASE
     END
     POPUP "&View"
     BEGIN
@@ -120,7 +122,14 @@ BEGIN
     END
     POPUP "Render"
     BEGIN
-        MENUITEM "RunRender",                   IDM_RENDER
+        MENUITEM "Render in 3D",                   IDM_RENDER
+        MENUITEM "Get DepthMap",                   IDM_RENDERDEPTHMAP
+        MENUITEM "Get EdgeMap",                   IDM_RENDEREDGEMAP
+        MENUITEM "Apply Gaussian Blur",                   IDM_RENDERGAUSSIANBLUR
+        MENUITEM "Apply Procedural Texture",                   IDM_RENDERTEXTUREP
+        MENUITEM "Apply Image Texture",                   IDM_RENDERTEXTURE
+        MENUITEM "Apply Loose Strokes",                   IDM_RENDERSTROKES
+        MENUITEM "Render as Loose and Sketchy",                   IDM_RENDERLOOSESKETCHY
     END
 END
 
@@ -273,6 +282,36 @@ BEGIN
     EDITTEXT        IDC_EDIT_B_A,61,7,26,12,ES_AUTOHSCROLL
 END
 
+IDD_INCREASE DIALOG DISCARDABLE  0, 0, 134, 70
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Increase Parameters"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,7,50,59,12
+    PUSHBUTTON      "Cancel",IDCANCEL,68,50,59,12
+    CONTROL         "Edge Thickness",IDC_CHECK_EDGE,"Button",BS_AUTOCHECKBOX,8,8,87,
+                    10
+    CONTROL         "Edge Randomness",IDC_CHECK_LOOSE,"Button",BS_AUTOCHECKBOX,8,20,87,
+                    10
+    CONTROL         "Blurriness",IDC_CHECK_BLUR,"Button",BS_AUTOCHECKBOX,8,32,87,
+                    10
+END
+
+IDD_DECREASE DIALOG DISCARDABLE  0, 0, 134, 70
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Decrease Parameters"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,7,50,59,12
+    PUSHBUTTON      "Cancel",IDCANCEL,68,50,59,12
+    CONTROL         "Edge Thickness",IDC_CHECK_EDGE,"Button",BS_AUTOCHECKBOX,8,8,87,
+                    10
+    CONTROL         "Edge Randomness",IDC_CHECK_LOOSE,"Button",BS_AUTOCHECKBOX,8,20,87,
+                    10
+    CONTROL         "Blurriness",IDC_CHECK_BLUR,"Button",BS_AUTOCHECKBOX,8,32,87,
+                    10
+END
+
 
 #ifndef _MAC
 /////////////////////////////////////////////////////////////////////////////
@@ -374,6 +413,22 @@ BEGIN
     END
 
     IDD_AMBIENT_LIGHT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 127
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 38
+    END
+
+    IDD_INCREASE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 127
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 38
+    END
+
+    IDD_DECREASE, DIALOG
     BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 127
@@ -497,6 +552,13 @@ END
 STRINGTABLE DISCARDABLE 
 BEGIN
     IDM_RENDER              "Render the scene\n"
+    IDM_RENDERDEPTHMAP       "Render the DepthMap\n"
+    IDM_RENDEREDGEMAP       "Render the EdgeMap\n"
+    IDM_RENDERGAUSSIANBLUR  "Apply Gaussian Blur\n"
+    IDM_RENDERTEXTUREP      "Apply Procedural Texture\n"
+    IDM_RENDERTEXTURE       "Apply Image Texture\n"
+    IDM_RENDERSTROKES       "Apply Loose Strokes\n"
+    IDM_RENDERLOOSESKETCHY  "Render Loose and Sketchy Scene\n"
     IDM_OBJ_TRX             "Object Translation(Rotate, Translate, Scale) Interface\n"
     IDM_ROTATE              "Rotate Object\n"
     IDM_TRANSLATE           "Translate Object\n"

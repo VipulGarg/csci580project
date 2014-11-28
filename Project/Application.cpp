@@ -27,7 +27,9 @@ Application::Application()
 	m_pDepthMapBlurred = NULL;
 	m_pEdgeMap = NULL;
 	m_p3DImageBlurred = NULL;
-	m_pPaperTexture = NULL;
+	m_pTexture = NULL;
+	m_pProceduralTexture = NULL;
+	m_pImageTexture = NULL;
 	m_pTextureImageMult = NULL;
 	m_pFinalImage = NULL;
 	m_pFF1_x = NULL;

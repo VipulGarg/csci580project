@@ -12,6 +12,8 @@
 #include "Light1Dlg.h"
 #include "Light2Dlg.h"
 #include "AmbientLightDlg.h"
+#include "IncreaseDlg.h"
+#include "DecreaseDlg.h"
 
 #include "disp.h"
 #include "Project.h"
@@ -30,6 +32,13 @@ IMPLEMENT_DYNCREATE(CCS580ProjectView, CView)
 BEGIN_MESSAGE_MAP(CCS580ProjectView, CView)
 	//{{AFX_MSG_MAP(CCS580ProjectView)
 	ON_COMMAND(IDM_RENDER, OnRender)
+	ON_COMMAND(IDM_RENDERDEPTHMAP, OnDepthMap)
+	ON_COMMAND(IDM_RENDEREDGEMAP, OnEdgeMap)
+	ON_COMMAND(IDM_RENDERGAUSSIANBLUR, OnGaussianBlur)
+	ON_COMMAND(IDM_RENDERTEXTUREP, OnTextureP)
+	ON_COMMAND(IDM_RENDERTEXTURE, OnTexture)
+	ON_COMMAND(IDM_RENDERSTROKES, OnStrokes)
+	ON_COMMAND(IDM_RENDERLOOSESKETCHY, OnLooseAndSketchy)
 	ON_COMMAND(IDM_ROTATE, OnRotate)
 	ON_COMMAND(IDM_TRANSLATE, OnTranslate)
 	ON_COMMAND(IDM_SCALE, OnScale)
@@ -42,6 +51,8 @@ BEGIN_MESSAGE_MAP(CCS580ProjectView, CView)
 	ON_COMMAND(IDM_ROTATE_Y_N, OnRotateYN)
 	ON_COMMAND(IDM_ROTATE_Z_P, OnRotateZP)
 	ON_COMMAND(IDM_ROTATE_Z_N, OnRotateZN)
+	ON_COMMAND(IDM_INCREASE, OnIncrease)
+	ON_COMMAND(IDM_DECREASE, OnDecrease)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -111,6 +122,212 @@ void CCS580ProjectView::OnRender()
 	// TODO: Add your command handler code here
 
 	// Call renderer 
+	currRenderFunc = 0;
+
+	// Application 4
+	if(m_pApplication != NULL)
+		((Project *)m_pApplication)->Render();
+	else 
+		AfxMessageBox("Application was not allocated\n");
+
+	// Set window size
+	CRect clientRect, windowRect;
+	int x_offset, y_offset;
+
+	GetClientRect(&clientRect);
+	AfxGetMainWnd()->GetWindowRect(&windowRect);
+	
+	x_offset = windowRect.Width() - clientRect.Width();
+	y_offset = windowRect.Height() - clientRect.Height();
+
+	AfxGetMainWnd()->SetWindowPos(NULL, 0, 0, x_offset+m_pApplication->m_nWidth, y_offset+m_pApplication->m_nHeight, NULL/*,SWP_SHOWWINDOW*/);
+
+	Invalidate(true);	
+}
+
+
+void CCS580ProjectView::OnDepthMap() 
+{
+	// TODO: Add your command handler code here
+
+	// Call renderer 
+	currRenderFunc = 1;
+
+	// Application 4
+	if(m_pApplication != NULL)
+		((Project *)m_pApplication)->Render();
+	else 
+		AfxMessageBox("Application was not allocated\n");
+
+	// Set window size
+	CRect clientRect, windowRect;
+	int x_offset, y_offset;
+
+	GetClientRect(&clientRect);
+	AfxGetMainWnd()->GetWindowRect(&windowRect);
+	
+	x_offset = windowRect.Width() - clientRect.Width();
+	y_offset = windowRect.Height() - clientRect.Height();
+
+	AfxGetMainWnd()->SetWindowPos(NULL, 0, 0, x_offset+m_pApplication->m_nWidth, y_offset+m_pApplication->m_nHeight, NULL/*,SWP_SHOWWINDOW*/);
+
+	Invalidate(true);	
+}
+
+
+void CCS580ProjectView::OnEdgeMap() 
+{
+	// TODO: Add your command handler code here
+
+	// Call renderer 
+	currRenderFunc = 2;
+
+	// Application 4
+	if(m_pApplication != NULL)
+		((Project *)m_pApplication)->Render();
+	else 
+		AfxMessageBox("Application was not allocated\n");
+
+	// Set window size
+	CRect clientRect, windowRect;
+	int x_offset, y_offset;
+
+	GetClientRect(&clientRect);
+	AfxGetMainWnd()->GetWindowRect(&windowRect);
+	
+	x_offset = windowRect.Width() - clientRect.Width();
+	y_offset = windowRect.Height() - clientRect.Height();
+
+	AfxGetMainWnd()->SetWindowPos(NULL, 0, 0, x_offset+m_pApplication->m_nWidth, y_offset+m_pApplication->m_nHeight, NULL/*,SWP_SHOWWINDOW*/);
+
+	Invalidate(true);	
+}
+
+
+void CCS580ProjectView::OnGaussianBlur() 
+{
+	// TODO: Add your command handler code here
+
+	// Call renderer 
+	currRenderFunc = 3;
+
+	// Application 4
+	if(m_pApplication != NULL)
+		((Project *)m_pApplication)->Render();
+	else 
+		AfxMessageBox("Application was not allocated\n");
+
+	// Set window size
+	CRect clientRect, windowRect;
+	int x_offset, y_offset;
+
+	GetClientRect(&clientRect);
+	AfxGetMainWnd()->GetWindowRect(&windowRect);
+	
+	x_offset = windowRect.Width() - clientRect.Width();
+	y_offset = windowRect.Height() - clientRect.Height();
+
+	AfxGetMainWnd()->SetWindowPos(NULL, 0, 0, x_offset+m_pApplication->m_nWidth, y_offset+m_pApplication->m_nHeight, NULL/*,SWP_SHOWWINDOW*/);
+
+	Invalidate(true);	
+}
+
+
+void CCS580ProjectView::OnTextureP() 
+{
+	// TODO: Add your command handler code here
+
+	// Call renderer 
+	currRenderFunc = 4;
+	lastTexture = 0;
+
+	// Application 4
+	if(m_pApplication != NULL)
+		((Project *)m_pApplication)->Render();
+	else 
+		AfxMessageBox("Application was not allocated\n");
+
+	// Set window size
+	CRect clientRect, windowRect;
+	int x_offset, y_offset;
+
+	GetClientRect(&clientRect);
+	AfxGetMainWnd()->GetWindowRect(&windowRect);
+	
+	x_offset = windowRect.Width() - clientRect.Width();
+	y_offset = windowRect.Height() - clientRect.Height();
+
+	AfxGetMainWnd()->SetWindowPos(NULL, 0, 0, x_offset+m_pApplication->m_nWidth, y_offset+m_pApplication->m_nHeight, NULL/*,SWP_SHOWWINDOW*/);
+
+	Invalidate(true);	
+}
+
+
+void CCS580ProjectView::OnTexture() 
+{
+	// TODO: Add your command handler code here
+
+	// Call renderer 
+	currRenderFunc = 5;
+	lastTexture = 1;
+
+	// Application 4
+	if(m_pApplication != NULL)
+		((Project *)m_pApplication)->Render();
+	else 
+		AfxMessageBox("Application was not allocated\n");
+
+	// Set window size
+	CRect clientRect, windowRect;
+	int x_offset, y_offset;
+
+	GetClientRect(&clientRect);
+	AfxGetMainWnd()->GetWindowRect(&windowRect);
+	
+	x_offset = windowRect.Width() - clientRect.Width();
+	y_offset = windowRect.Height() - clientRect.Height();
+
+	AfxGetMainWnd()->SetWindowPos(NULL, 0, 0, x_offset+m_pApplication->m_nWidth, y_offset+m_pApplication->m_nHeight, NULL/*,SWP_SHOWWINDOW*/);
+
+	Invalidate(true);	
+}
+
+
+void CCS580ProjectView::OnStrokes() 
+{
+	// TODO: Add your command handler code here
+
+	// Call renderer 
+	currRenderFunc = 6;
+
+	// Application 4
+	if(m_pApplication != NULL)
+		((Project *)m_pApplication)->Render();
+	else 
+		AfxMessageBox("Application was not allocated\n");
+
+	// Set window size
+	CRect clientRect, windowRect;
+	int x_offset, y_offset;
+
+	GetClientRect(&clientRect);
+	AfxGetMainWnd()->GetWindowRect(&windowRect);
+	
+	x_offset = windowRect.Width() - clientRect.Width();
+	y_offset = windowRect.Height() - clientRect.Height();
+
+	AfxGetMainWnd()->SetWindowPos(NULL, 0, 0, x_offset+m_pApplication->m_nWidth, y_offset+m_pApplication->m_nHeight, NULL/*,SWP_SHOWWINDOW*/);
+
+	Invalidate(true);	
+}
+
+
+void CCS580ProjectView::OnLooseAndSketchy() 
+{
+	// TODO: Add your command handler code here
+
+	// Call renderer 
+	currRenderFunc = 7;
 
 	// Application 4
 	if(m_pApplication != NULL)
@@ -185,6 +402,7 @@ void CCS580ProjectView::DrawFrameBuffer(CDC *pDC)
     DeleteObject(m_bitmap); 
 }
 
+
 void CCS580ProjectView::OnInitialUpdate() 
 {
 	CView::OnInitialUpdate();
@@ -200,6 +418,46 @@ void CCS580ProjectView::OnInitialUpdate()
 	// Initialize and begin renderer
 	((Project *)m_pApplication)->Initialize();
 }
+
+
+void CCS580ProjectView::ChooseRenderFunc()
+{
+	switch(currRenderFunc)
+	{
+	case 0:
+		OnRender();
+		break;
+
+	case 1:
+		OnDepthMap();
+		break;
+
+	case 2:
+		OnEdgeMap();
+		break;
+
+	case 3:
+		OnGaussianBlur();
+		break;
+
+	case 4:
+		OnTextureP();
+		break;
+
+	case 5:
+		OnTexture();
+		break;
+
+	case 6:
+		OnStrokes();
+		break;
+
+	case 7:
+		OnLooseAndSketchy();
+		break;
+	}
+}
+
 
 // Callback function for rotation  
 void CCS580ProjectView::OnRotate() 
@@ -252,6 +510,65 @@ void CCS580ProjectView::OnRotate()
 	}
 }
 
+
+// Callback function for rotation  
+void CCS580ProjectView::OnIncrease() 
+{
+	// TODO: Add your command handler code here
+	CIncreaseDlg dlg;
+
+	if(dlg.DoModal() == IDOK)
+	{
+		if (dlg.m_bEdge == true)
+		{
+			if (m_fthreshold > 50)
+				m_fthreshold -= 50;
+		}
+		if (dlg.m_bLoose == true)
+		{
+			m_idistanceInPixels += 1;
+		}
+		if (dlg.m_bBlur == true)
+		{
+			m_ifilterLength += 2;
+		}
+		dlg.m_bBlur = false;
+		dlg.m_bEdge = false;
+		dlg.m_bLoose = false;
+		ChooseRenderFunc();
+	}
+}
+
+
+// Callback function for rotation  
+void CCS580ProjectView::OnDecrease() 
+{
+	// TODO: Add your command handler code here
+	CDecreaseDlg dlg;
+
+	if(dlg.DoModal() == IDOK)
+	{
+		if (dlg.m_bEdge == true)
+		{
+			m_fthreshold += 50;
+		}
+		if (dlg.m_bLoose == true)
+		{
+			if (m_idistanceInPixels > 1)
+				m_idistanceInPixels -= 1;
+		}
+		if (dlg.m_bBlur == true)
+		{
+			if (m_ifilterLength > 3)
+				m_ifilterLength -= 2;
+		}
+		dlg.m_bBlur = false;
+		dlg.m_bEdge = false;
+		dlg.m_bLoose = false;
+		ChooseRenderFunc();
+	}
+}
+
 // Callback function for rotation  
 void CCS580ProjectView::OnRotateXP() 
 {
@@ -271,7 +588,7 @@ void CCS580ProjectView::OnRotateXP()
 
 	// Accumulate matrix
 	GzPushMatrix(m_pApplication->m_pRender, rotMat);
-	OnRender();
+	ChooseRenderFunc();
 }
 
 // Callback function for rotation  
@@ -293,7 +610,7 @@ void CCS580ProjectView::OnRotateXN()
 
 	// Accumulate matrix
 	GzPushMatrix(m_pApplication->m_pRender, rotMat);
-	OnRender();
+	ChooseRenderFunc();
 }
 
 // Callback function for rotation  
@@ -315,7 +632,7 @@ void CCS580ProjectView::OnRotateYP()
 
 	// Accumulate matrix
 	GzPushMatrix(m_pApplication->m_pRender, rotMat);
-	OnRender();
+	ChooseRenderFunc();
 }
 
 // Callback function for rotation  
@@ -337,7 +654,7 @@ void CCS580ProjectView::OnRotateYN()
 
 	// Accumulate matrix
 	GzPushMatrix(m_pApplication->m_pRender, rotMat);
-	OnRender();
+	ChooseRenderFunc();
 }
 
 // Callback function for rotation  
@@ -359,7 +676,7 @@ void CCS580ProjectView::OnRotateZP()
 
 	// Accumulate matrix
 	GzPushMatrix(m_pApplication->m_pRender, rotMat);
-	OnRender();
+	ChooseRenderFunc();
 }
 
 // Callback function for rotation  
@@ -381,7 +698,7 @@ void CCS580ProjectView::OnRotateZN()
 
 	// Accumulate matrix
 	GzPushMatrix(m_pApplication->m_pRender, rotMat);
-	OnRender();
+	ChooseRenderFunc();
 }
 
 // Callback function for Translation

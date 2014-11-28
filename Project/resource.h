@@ -12,6 +12,8 @@
 #define IDD_LIGHT1                      135
 #define IDD_LIGHT2                      136
 #define IDD_AMBIENT_LIGHT               137
+#define IDD_INCREASE                    138
+#define IDD_DECREASE                    139
 #define IDC_RADIO_ROTX                  1003
 #define IDC_RADIO_ROTY                  1004
 #define IDC_RADIO_ROTZ                  1005
@@ -37,6 +39,9 @@
 #define IDC_EDIT_R_A                    1025
 #define IDC_EDIT_G_A                    1026
 #define IDC_EDIT_B_A                    1027
+#define IDC_CHECK_EDGE                  1027
+#define IDC_CHECK_LOOSE                 1028
+#define IDC_CHECK_BLUR                  1029
 #define IDM_RENDER                      32771
 #define IDM_OBJ_TRX                     32772
 #define IDM_ROTATE                      32773
@@ -51,6 +56,15 @@
 #define IDM_ROTATE_Y_N                  32782
 #define IDM_ROTATE_Z_P                  32783
 #define IDM_ROTATE_Z_N                  32784
+#define IDM_RENDEREDGEMAP               32785
+#define IDM_RENDERGAUSSIANBLUR          32786
+#define IDM_RENDERTEXTURE               32787
+#define IDM_RENDERSTROKES               32788
+#define IDM_RENDERLOOSESKETCHY          32789
+#define IDM_RENDERTEXTUREP              32790
+#define IDM_RENDERDEPTHMAP              32791
+#define IDM_INCREASE                    32792
+#define IDM_DECREASE                    32793
 
 // Next default values for new objects
 // 

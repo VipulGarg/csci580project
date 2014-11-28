@@ -50,6 +50,13 @@ protected:
 protected:
 	//{{AFX_MSG(CCS580ProjectView)
 	afx_msg void OnRender();
+	afx_msg void OnDepthMap();
+	afx_msg void OnEdgeMap();
+	afx_msg void OnGaussianBlur();
+	afx_msg void OnTextureP();
+	afx_msg void OnTexture();
+	afx_msg void OnStrokes();
+	afx_msg void OnLooseAndSketchy();
 	afx_msg void OnRotate();
 	afx_msg void OnTranslate();
 	afx_msg void OnScale();
@@ -62,8 +69,11 @@ protected:
 	afx_msg void OnRotateYN();
 	afx_msg void OnRotateZP();
 	afx_msg void OnRotateZN();
+	afx_msg void OnIncrease();
+	afx_msg void OnDecrease();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
+	void ChooseRenderFunc();
 };
 
 #ifndef _DEBUG  // debug version in CS580ProjectView.cpp

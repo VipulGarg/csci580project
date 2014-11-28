@@ -25,6 +25,11 @@ extern OBJParser objParser;
 extern GzLight light1;
 extern GzLight light2;
 extern GzLight ambientLight;
+extern int currRenderFunc;
+extern int lastTexture;
+extern float m_fthreshold;
+extern int m_ifilterLength;
+extern int m_idistanceInPixels;
 
 
 class CCS580ProjectApp : public CWinApp

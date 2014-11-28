@@ -134,6 +134,8 @@
   <ItemGroup>
     <ClCompile Include="AmbientLightDlg.cpp" />
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="DecreaseDlg.cpp" />
+    <ClCompile Include="IncreaseDlg.cpp" />
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="CS580Project.cpp" />
     <ClCompile Include="CS580ProjectDoc.cpp" />
@@ -160,6 +162,8 @@
   <ItemGroup>
     <ClInclude Include="AmbientLightDlg.h" />
     <ClInclude Include="Application.h" />
+    <ClInclude Include="DecreaseDlg.h" />
+    <ClInclude Include="IncreaseDlg.h" />
     <ClInclude Include="Project.h" />
     <ClInclude Include="CS580Project.h" />
     <ClInclude Include="CS580ProjectDoc.h" />
