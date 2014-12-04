@@ -23,11 +23,11 @@ struct color
 };
 
 /********************************************SIZE DEFINITIONS***/
-const unsigned hgrid = 256,//x dimension of the grid (can be anything >= 1)
+const unsigned hgrid = 512,//x dimension of the grid (can be anything >= 1)
 			   vgrid = hgrid;//y dimension of the grid (can be anything >= 1 (hgrid and vgrid can differ); I only do this to make a square image)
 
 /*********************************************SEED DEFINITION***/
-int permutation[256];
+int *permutation = new int[hgrid];
 
 /*****************************************FUNCTION PROTOTYPES***/
 int ranInt();
@@ -79,7 +79,7 @@ color lerp(color c1, color c2, float value)
 	return (tcolor);
 }
 
-void fillMap(float map[][vgrid], float &min, float &max)
+void fillMap(float **map, float &min, float &max)
 {
 	//set up some variables
 	int	i,//iterator
@@ -418,7 +418,7 @@ float smoothedNoise_quadratic(float x,float y)
 	//return (distance2);
 }
 
-void printMap(unsigned char* pPaperTexture, float map[][vgrid], float min, float max)
+void printMap(unsigned char* pPaperTexture, float **map, float min, float max)
 {
 //set up some variables
 	float diff = max-min,
@@ -431,8 +431,8 @@ void printMap(unsigned char* pPaperTexture, float map[][vgrid], float min, float
 	int i,j,k;
 	
 	//these can be changed for interesting results
-	color //black(160,180,180),white(200,230,230);
-		  black(0,20,20),white(70,90,90);
+	color black(100,100,100),white(200,230,230);
+		  //black(0,50,50),white(70,90,90);
 		
 	//3.2 put in the elements of the array
 	color newcolor(0,0,0);
@@ -493,18 +493,19 @@ void generatePaperTexture(unsigned char* pPaperTexture)
 {
 	int i,j,k;
 
-	for (i = 0; i < 256; ++i)
+	for (i = 0; i < 512; ++i)
 		permutation[i]=i;
 
-	for (i = 0; i < 256; ++i)
+	for (i = 0; i < 512; ++i)
 	{
 		j=permutation[i];
 		k=ranInt();
 		permutation[i]=permutation[k];
 		permutation[k]=j;
 	}
-
-	float map[hgrid][vgrid];//make the empty array
+	float** map = new float *[hgrid];
+	for(int i = 0; i < hgrid; ++i)
+		map[i] = new float[vgrid];
 	
 	float min,max;
 

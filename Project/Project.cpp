@@ -63,8 +63,8 @@ int Project::Initialize()
 	 * initialize the display and the renderer 
 	 */ 
 
-	m_nWidth = 256;		// frame buffer and display width
-	m_nHeight = 256;    // frame buffer and display height
+	m_nWidth = 512;		// frame buffer and display width
+	m_nHeight = 512;    // frame buffer and display height
 
 	status |= GzNewFrameBuffer(&m_pFrameBuffer, m_nWidth, m_nHeight);
 	status |= GzNewFrameBuffer(&m_p3DImageInRGB, m_nWidth, m_nHeight);
@@ -745,7 +745,7 @@ void Project::DrawLooseStrokes(unsigned char* edgemap, float* ffx, float* ffy, u
 
 void Project::LoadImageTexture(unsigned char *texture)
 {
-	FILE* fd = fopen ("papertexture.ppm", "rb");
+	FILE* fd = fopen ("paper.ppm", "rb");
 	if (fd == NULL)
 	{
 		fprintf (stderr, "texture file not found\n");
